@@ -49,7 +49,7 @@
         global $seo_meta_boxes;
         foreach($seo_meta_boxes['pages'] as $page)
 		{
-			add_meta_box($seo_meta_boxes['id'], $seo_meta_boxes['title'], 'metadata_seo_show_box', $page, $seo_meta_boxes['context'], $seo_meta_boxes['priority'], $seo_meta_boxes);
+			add_meta_box($seo_meta_boxes['id'], $seo_meta_boxes['title'], 'metadata_seo_show_box', $page, $seo_meta_boxes['context'], $seo_meta_boxes['priority']); //, $seo_meta_boxes);
         }
     }
 
