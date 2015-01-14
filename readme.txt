@@ -37,3 +37,7 @@ Once the plugin is installed, a new KEYWORDS & DESCRIPTION fields add on Setting
 == Screenshots ==
 1. Keywords & Description on PAGE.
 2. Global Keywords & Description on General.
+
+== Changelog ==
+= 1.2 =
+Bugfix in Getting List of Post/Pages

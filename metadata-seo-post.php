@@ -1,10 +1,12 @@
 <?php
 
 	global $prefix;
+	$post_types = get_post_types();
 	$seo_meta_boxes = array(
 		'id' => $prefix . 'id',
 		'title' => 'Custom SEO',
-		'pages' => array('page','post'), // post type
+//		'pages' => array('page','post'), // post type
+		'pages' => $post_types,
 		'context' => 'normal',
 		'priority' => 'high',
 		'fields' => array(
