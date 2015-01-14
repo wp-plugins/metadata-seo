@@ -41,3 +41,6 @@ Once the plugin is installed, a new KEYWORDS & DESCRIPTION fields add on Setting
 == Changelog ==
 = 1.2 =
 Bugfix in Getting List of Post/Pages
+
+= 1.3 =
+Add Custom SEO in all Inbuilt Post/Pages & Custom Post/Pages

@@ -1,14 +1,12 @@
 <?php
 
 	global $prefix;
-	$post_types = get_post_types();
 	$seo_meta_boxes = array(
 		'id' => $prefix . 'id',
 		'title' => 'Custom SEO',
-//		'pages' => array('page','post'), // post type
-		'pages' => $post_types,
+		'pages' => array('page','post'), // post type
 		'context' => 'normal',
-		'priority' => 'high',
+		'priority' => 'low',
 		'fields' => array(
 			array(
 				'name' => 'Meta Keywords:',
@@ -47,7 +45,8 @@
     function metadata_seo_meta_box() 
 	{
         global $seo_meta_boxes;
-        foreach($seo_meta_boxes['pages'] as $page)
+		$post_types = get_post_types();
+        foreach($post_types as $page)
 		{
 			add_meta_box($seo_meta_boxes['id'], $seo_meta_boxes['title'], 'metadata_seo_show_box', $page, $seo_meta_boxes['context'], $seo_meta_boxes['priority']); //, $seo_meta_boxes);
         }
@@ -60,7 +59,8 @@
         global $seo_meta_boxes;
 
         // Use nonce for verification
-        echo '<input type="hidden" name="seo_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
+		wp_nonce_field( plugin_basename( __FILE__ ), 'seo_meta_box_nonce' );
+//        echo '<input type="hidden" name="seo_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
          
         echo '<table class="form-table">';
      
