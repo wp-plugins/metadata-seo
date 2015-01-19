@@ -27,7 +27,6 @@ class metadata_seo_widget extends WP_Widget {
 	function widget( $args, $instance ) {
 		$fb_title = apply_filters( 'fb_title', $instance['fb_title'] );
 		$fb_showface = apply_filters( 'fb_showface', $instance['fb_showface'] );
-		$fb_width = apply_filters( 'fb_width', $instance['fb_width'] );
 		$showface='false';
 		if ($fb_showface!=0) { $showface='true'; }
 		// before and after widget arguments are defined by themes
@@ -37,7 +36,7 @@ class metadata_seo_widget extends WP_Widget {
 			echo $args['before_title'] . $fb_title . $args['after_title'];
 		}
 		// This is where you run the code and display the output ( e.g. name of template )
-		echo metadata_seo_widget_template(get_permalink(),$fb_width,$showface);
+		echo metadata_seo_fb($showface);
 		echo $args['after_widget'];
 	}
 	
@@ -51,7 +50,6 @@ class metadata_seo_widget extends WP_Widget {
 	function form( $instance ) {
 		$fb_title =  ! empty( $instance['fb_title'] ) ? $instance['fb_title'] : __( 'Facebook Like & Share', 'metadata_seo_widget' , 'metadata-seo');
 		$fb_showface =  ! empty( $instance['fb_showface'] ) ? $instance['fb_showface'] : __( 'facebook', 'metadata_seo_widget' , 'metadata-seo');
-		$fb_width =  ! empty( $instance['fb_width'] ) ? $instance['fb_width'] : __( '200', 'metadata_seo_widget' , 'metadata-seo');
 
 	// Widget admin form
 	?>
@@ -62,9 +60,6 @@ class metadata_seo_widget extends WP_Widget {
 	<label for="<?php echo $this->get_field_id( 'fb_showface' ); ?>"><?php _e( 'Show Face:' , 'metadata-seo'); ?></label> 
 	<input class="widefat" id="<?php echo $this->get_field_id( 'fb_showface' ); ?>" name="<?php echo $this->get_field_name( 'fb_showface' ); ?>" type="checkbox" value="true" <?php echo checked( $fb_showface ); ?> />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	
-	<label for="<?php echo $this->get_field_id( 'fb_width' ); ?>"><?php _e( 'Width:' , 'metadata-seo'); ?></label> 
-	<input class="widefat" id="<?php echo $this->get_field_id( 'fb_width' ); ?>" name="<?php echo $this->get_field_name( 'fb_width' ); ?>" type="text" value="<?php echo esc_attr( $fb_width ); ?>" style="width:50px;" />
-
 	</p>
 	<?php 
 	}
@@ -82,14 +77,14 @@ class metadata_seo_widget extends WP_Widget {
 		$instance = array();
 		$instance['fb_title'] = ( ! empty( $new_instance['fb_title'] ) ) ? strip_tags( $new_instance['fb_title'] ) : '';
 		$instance['fb_showface'] = ( ! empty( $new_instance['fb_showface'] ) ) ? true : false;
-		$instance['fb_width'] = ( ! empty( $new_instance['fb_width'] ) ) ? strip_tags( $new_instance['fb_width'] ) : '';
 		return $instance;
 	}
 } // metadata_seo_widget ends here
 
 
-function metadata_seo_widget_template($url,$width,$showface)
+function metadata_seo_fb($showface)
 {
+	$url=get_permalink();
 	echo '<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -99,7 +94,12 @@ function metadata_seo_widget_template($url,$width,$showface)
   fjs.parentNode.insertBefore(js, fjs);
 }(document, "script", "facebook-jssdk"));</script>';
 
-echo '<div class="fb-like" data-href="' . $url . '" data-layout="standard" data-action="like" data-show-faces="' . $showface . '" data-share="true" data-width="'. $width . '"></div>';
+echo '<div class="fb-like" data-href="' . $url . '" data-layout="standard" data-action="like" data-show-faces="' . $showface . '" data-share="true" ></div>';
 
+//echo '<div class="fb-like" data-href="' . $url . '" data-colorscheme="light" data-show-faces="' . $showface . '" data-header="true" data-stream="false" data-show-border="true" data-share="true" data-width="'. $width . '"></div>';
+
+//echo '<div class="fb-facepile" data-href="' . $url . '" data-max-rows="1" data-colorscheme="light" data-size="medium" data-show-count="true"></div>';
+
+//echo '<div class="fb-share-button" data-href="' . $url . '" data-layout="button_count"></div>';
 }
 ?>
