@@ -3,7 +3,7 @@
 Plugin Name: Metadata SEO
 Plugin URI: http://www.hpinfosys.com/ 
 Description: Add Keywords, Description to Global / Individual Pages/ Individual Post for SEO, working with OPEN GRAPH Metadata for Facebook
-Version: 2.0
+Version: 2.1
 Author: Hitesh Patel
 Author URI: http://hpinfosys.com
 */

@@ -81,6 +81,14 @@ class metadata_seo_widget extends WP_Widget {
 	}
 } // metadata_seo_widget ends here
 
+function open_graph_fb_show_shortcode( $atts )
+{
+	extract(shortcode_atts(array(
+		  'showface' => 'false'
+	   ), $atts));	
+	metadata_seo_fb( $showface );
+}
+add_shortcode( 'fb-view','open_graph_fb_show_shortcode');
 
 function metadata_seo_fb($showface)
 {

@@ -35,11 +35,17 @@ Once the plugin is installed, a new KEYWORDS, DESCRIPTION, OpenGraph TITLE,AppID
 5. Click “Install Now”
 6. Click “Activate Plugin” 
 
+= Shortcode =
+Place "do_shortcode( '[fb-view showface="true"]' );" in your templates.
+
 == Screenshots ==
 1. Keywords & Description on PAGE.
 2. Global Keywords & Description.
 
 == Changelog ==
+= 2.1 =
+Add Shortcode [fb-view] for using in your custom template
+
 = 2.0 =
 Additing OPENGRAPH metadata for FACEBOOK & Add Widget for Facebook Like & Share
 
