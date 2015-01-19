@@ -1,69 +1,94 @@
 <?php
 
 	global $metadata_prefix;
-	$seo_meta_boxes = array(
-		'id' => $metadata_prefix . 'id',
-		'title' => 'Metadata SEO',
+	$seo_meta_og_boxes = array(
+		'id' => $metadata_prefix . 'og_id',
+		'title' => 'Metadata SEO Open Graph for facebook',
 		'pages' => array('page','post'), // post type
 		'context' => 'normal',
 		'priority' => 'low',
 		'fields' => array(
 			array(
-				'name' => 'Meta Keywords:',
-				'desc' => 'List your Meta Keywords separated by commas (e.g. keyword one, keyword two, keyword three,...)',
-				'id' => $metadata_prefix . 'keywords',
-				'class'         => 'keywords',
-				'type'          => 'textarea',
-				'rows'          => 2
+				'name' => 'Title:',
+				'desc' => '',
+				'id' => $metadata_prefix . 'og_title',
+				'class'         => 'title',
+				'type'          => 'text',
 			),
 			
 			array(
-				'name' => 'Meta Description:',
-				'desc' => 'Enter your Meta Description here and keep it less than 150 characters.',
-				'id' => $metadata_prefix . 'description',
+				'name' => 'Description:',
+				'desc' => '',
+				'id' => $metadata_prefix . 'og_description',
 				'class'         => 'description',
 				'type'          => 'textarea',
 				'rows'          => 5
 			),
 			array(
-				'name'    => 'Meta Robot Request',
-				'desc'    => 'Do NOT change this unless you know what you are doing',
-				'id'      => $metadata_prefix . 'follow_nofollow_select',
-				'class'   => 'follow_nofollow',
+				'name'    => 'Type',
+				'desc'    => '',
+				'id'      => $metadata_prefix . 'og_type',
+				'class'   => 'og_type',
 				'type'    => 'select',
 				'options' => array(
-					array( 'name' => 'Follow and Index', 'value' => 'follow, index', ),
-					array( 'name' => 'Follow but do not Index', 'value' => 'follow, noindex', ),
-					array( 'name' => 'Index but do not follow', 'value' => 'nofollow, index', ),
-					array( 'name' => 'Do not Index or Follow', 'value' => 'nofollow, noindex', ),
+					array( 'name' => 'Website', 'value' => 'website', ),
+					array( 'name' => 'Article', 'value' => 'article', ),
+					array( 'name' => 'Blog', 'value' => 'blog', ),
+					array( 'name' => 'Activity', 'value' => 'activity', ),
+					array( 'name' => 'Sport', 'value' => 'sport', ),
+					array( 'name' => 'Bar', 'value' => 'bar', ),
+					array( 'name' => 'Company', 'value' => 'company', ),
+					array( 'name' => 'Cafe', 'value' => 'cafe', ),
+					array( 'name' => 'Hotel', 'value' => 'hotel', ),
+					array( 'name' => 'Restaurant', 'value' => 'restaurant', ),
+					array( 'name' => 'Government', 'value' => 'government', ),
+					array( 'name' => 'Non_profit', 'value' => 'non_profit', ),
+					array( 'name' => 'School', 'value' => 'school', ),
+					array( 'name' => 'University', 'value' => 'university', ),
+					array( 'name' => 'Actor', 'value' => 'actor', ),
+					array( 'name' => 'City', 'value' => 'city', ),
+					array( 'name' => 'Country', 'value' => 'country', ),
+					array( 'name' => 'Landmark', 'value' => 'landmark', ),
+					array( 'name' => 'Book', 'value' => 'book', ),
+					array( 'name' => 'Product', 'value' => 'product', ),
 				),
 			),
+			array(
+				'name' => 'Image:',
+				'desc' => '',
+				'id' => $metadata_prefix . 'og_image',
+				'class'         => 'image',
+				'type'          => 'image',
+			),			
 		)
 	);
 
-    add_action('admin_menu', 'metadata_seo_meta_box');
-    function metadata_seo_meta_box() 
+    add_action('admin_menu', 'metadata_seo_og_meta_box');
+    function metadata_seo_og_meta_box() 
 	{
-        global $seo_meta_boxes;
+        global $seo_meta_og_boxes;
 		$post_types = get_post_types();
         foreach($post_types as $page)
 		{
-			add_meta_box($seo_meta_boxes['id'], $seo_meta_boxes['title'], 'metadata_seo_show_box', $page, $seo_meta_boxes['context'], $seo_meta_boxes['priority']); //, $seo_meta_boxes);
+			add_meta_box($seo_meta_og_boxes['id'], $seo_meta_og_boxes['title'], 'metadata_seo_og_show_box', $page, $seo_meta_og_boxes['context'], $seo_meta_og_boxes['priority']); //, $seo_meta_og_boxes);
         }
     }
 
 // function to show meta boxes
-    function metadata_seo_show_box()  {
+    function metadata_seo_og_show_box()  {
+
+		wp_enqueue_style('thickbox');
+		wp_enqueue_script('thickbox');
 		
         global $post;
-        global $seo_meta_boxes;
+        global $seo_meta_og_boxes;
 
         // Use nonce for verification
-        echo '<input type="hidden" name="seo_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
+        echo '<input type="hidden" name="seo_og_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
          
         echo '<table class="form-table">';
      
-        foreach ($seo_meta_boxes['fields'] as $field) {
+        foreach ($seo_meta_og_boxes['fields'] as $field) {
             // get current post meta data
      
             $meta = get_post_meta($post->ID, $field['id'], true);
@@ -107,6 +132,27 @@
 					echo '</select>';
 
 					break;
+
+				case 'image':
+                    echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta ? $meta : $field['std'], '" size="30" style="width:95%" /><br/>', '', stripslashes($field['desc']);
+					
+					
+					echo '<script type="text/javascript">
+						jQuery(document).ready(function() {
+							jQuery("#metadata_seo_og_image").click(function() 
+								{
+									tb_show("", "media-upload.php?type=image&amp;TB_iframe=true");
+									return false;
+								})
+								window.send_to_editor = function(html) {
+										jQuery("#metadata_seo_og_image").val( jQuery("img",html).attr("src") );
+										tb_remove();
+									}
+							});
+						</script>';
+					
+                    break;
+
             }
 			echo '<p class="metabox_description">', $field['desc'], '</p>';
             echo    '<td>',
@@ -115,17 +161,17 @@
          
         echo '</table>';
     }   
-     
+
     // Save data from meta box
-    function metadata_seo_save($post_id) {
+    function metadata_seo_og_save($post_id) {
         global $post;
-        global $seo_meta_boxes;
+        global $seo_meta_og_boxes;
          
         // verify nonce
-        if (!wp_verify_nonce($_POST['seo_meta_box_nonce'], basename(__FILE__))) {
+        if (!wp_verify_nonce($_POST['seo_og_meta_box_nonce'], basename(__FILE__))) {
             return $post_id;
         }
-     
+
         // check autosave
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return $post_id;
@@ -140,7 +186,7 @@
             return $post_id;
         }
          
-        foreach ($seo_meta_boxes['fields'] as $field) {
+        foreach ($seo_meta_og_boxes['fields'] as $field) {
          
             $old = get_post_meta($post_id, $field['id'], true);
             $new = $_POST[$field['id']];
@@ -167,11 +213,16 @@
 					 case 'select':
 					     update_post_meta($post_id, $field['id'], $new);
 					 	 break;
+
+					 case 'image':
+					     update_post_meta($post_id, $field['id'], $new);
+					 	 break;
+
 				}
             } elseif ('' == $new && $old) {
                 delete_post_meta($post_id, $field['id'], $old);
             }
         }
     }
-    add_action('save_post', 'metadata_seo_save');
+    add_action('save_post', 'metadata_seo_og_save');
 ?>

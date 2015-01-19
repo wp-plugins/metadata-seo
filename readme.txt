@@ -1,6 +1,6 @@
 ﻿=== Metadata SEO ===
 Contributors: hpinfosys
-Tags: SEO, Metadata, SEO Keywords, Metadata SEO
+Tags: SEO, Metadata, SEO Keywords, Metadata SEO, Open Graph, Facebook
 Donate link: http://hpinfosys.com
 Requires at least: 3.0.1
 Tested up to: 4.01
@@ -11,10 +11,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Metadata SEO integration.
 
 == Description ==
-This easy-to-use plugin provides a simple way for SEO integration.
+This easy-to-use plugin provides a simple way for SEO integration as well as OpenGraph for facebook.
+Widget for Facebook Like & Share with View Face
 
 = Usage =
-Once the plugin is installed, a new KEYWORDS & DESCRIPTION fields add on Settings->General and POST PAGES.
+Once the plugin is installed, a new KEYWORDS, DESCRIPTION, OpenGraph TITLE,AppID fields add on Settings->Metadata Seo and POST PAGES.
 
 == Installation ==
 = Method 1 =
@@ -36,11 +37,14 @@ Once the plugin is installed, a new KEYWORDS & DESCRIPTION fields add on Setting
 
 == Screenshots ==
 1. Keywords & Description on PAGE.
-2. Global Keywords & Description on General.
+2. Global Keywords & Description.
 
 == Changelog ==
-= 1.2 =
-Bugfix in Getting List of Post/Pages
+= 2.0 =
+Additing OPENGRAPH metadata for FACEBOOK & Add Widget for Facebook Like & Share
 
 = 1.3 =
 Add Custom SEO in all Inbuilt Post/Pages & Custom Post/Pages
+
+= 1.2 =
+Bugfix in Getting List of Post/Pages
