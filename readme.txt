@@ -43,6 +43,15 @@ Place "do_shortcode( '[fb-view showface="true"]' );" in your templates.
 2. Global Keywords & Description.
 
 == Changelog ==
+= 2.2 =
+Add Shortcode Parameter
+e.g. 
+[fb-view layout='standard']
+[fb-view layout='box_count']
+[fb-view layout='button_count']
+[fb-view layout='button']
+
+
 = 2.1 =
 Add Shortcode [fb-view] for using in your custom template
 

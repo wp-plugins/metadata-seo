@@ -36,7 +36,7 @@ class metadata_seo_widget extends WP_Widget {
 			echo $args['before_title'] . $fb_title . $args['after_title'];
 		}
 		// This is where you run the code and display the output ( e.g. name of template )
-		echo metadata_seo_fb($showface);
+		echo metadata_seo_fb($showface, 'standard');
 		echo $args['after_widget'];
 	}
 	
@@ -84,13 +84,14 @@ class metadata_seo_widget extends WP_Widget {
 function open_graph_fb_show_shortcode( $atts )
 {
 	extract(shortcode_atts(array(
-		  'showface' => 'false'
+		  'showface' => 'false',
+		  'layout' => 'standard'
 	   ), $atts));	
-	metadata_seo_fb( $showface );
+	metadata_seo_fb( $showface, $layout );
 }
 add_shortcode( 'fb-view','open_graph_fb_show_shortcode');
 
-function metadata_seo_fb($showface)
+function metadata_seo_fb($showface, $layout)
 {
 	$url=get_permalink();
 	echo '<div id="fb-root"></div>
@@ -102,7 +103,7 @@ function metadata_seo_fb($showface)
   fjs.parentNode.insertBefore(js, fjs);
 }(document, "script", "facebook-jssdk"));</script>';
 
-echo '<div class="fb-like" data-href="' . $url . '" data-layout="standard" data-action="like" data-show-faces="' . $showface . '" data-share="true" ></div>';
+echo '<div class="fb-like" data-href="' . $url . '" data-layout="' . $layout .'" data-action="like" data-show-faces="' . $showface . '" data-share="true"></div>';
 
 //echo '<div class="fb-like" data-href="' . $url . '" data-colorscheme="light" data-show-faces="' . $showface . '" data-header="true" data-stream="false" data-show-border="true" data-share="true" data-width="'. $width . '"></div>';
 
