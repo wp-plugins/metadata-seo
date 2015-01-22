@@ -43,6 +43,9 @@ Place "do_shortcode( '[fb-view showface="true"]' );" in your templates.
 2. Global Keywords & Description.
 
 == Changelog ==
+= 2.3 =
+addition Facebook Layout Selection in Widget
+
 = 2.2 =
 Add Shortcode Parameter
 e.g. 

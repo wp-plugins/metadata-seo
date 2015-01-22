@@ -27,6 +27,8 @@ class metadata_seo_widget extends WP_Widget {
 	function widget( $args, $instance ) {
 		$fb_title = apply_filters( 'fb_title', $instance['fb_title'] );
 		$fb_showface = apply_filters( 'fb_showface', $instance['fb_showface'] );
+		$fb_layout = apply_filters( 'fb_layout', $instance['fb_layout'] );
+		
 		$showface='false';
 		if ($fb_showface!=0) { $showface='true'; }
 		// before and after widget arguments are defined by themes
@@ -36,7 +38,7 @@ class metadata_seo_widget extends WP_Widget {
 			echo $args['before_title'] . $fb_title . $args['after_title'];
 		}
 		// This is where you run the code and display the output ( e.g. name of template )
-		echo metadata_seo_fb($showface, 'standard');
+		echo metadata_seo_fb($showface, $fb_layout);
 		echo $args['after_widget'];
 	}
 	
@@ -50,7 +52,7 @@ class metadata_seo_widget extends WP_Widget {
 	function form( $instance ) {
 		$fb_title =  ! empty( $instance['fb_title'] ) ? $instance['fb_title'] : __( 'Facebook Like & Share', 'metadata_seo_widget' , 'metadata-seo');
 		$fb_showface =  ! empty( $instance['fb_showface'] ) ? $instance['fb_showface'] : __( 'facebook', 'metadata_seo_widget' , 'metadata-seo');
-
+		$fb_layout = ! empty( $instance['fb_layout'] ) ? $instance['fb_layout'] : __( 'standard', 'metadata_seo_widget' , 'metadata-seo');
 	// Widget admin form
 	?>
 	<p>
@@ -58,8 +60,15 @@ class metadata_seo_widget extends WP_Widget {
 	<input class="widefat" id="<?php echo $this->get_field_id( 'fb_title' ); ?>" name="<?php echo $this->get_field_name( 'fb_title' ); ?>" type="text" value="<?php echo esc_attr( $fb_title ); ?>" />
 
 	<label for="<?php echo $this->get_field_id( 'fb_showface' ); ?>"><?php _e( 'Show Face:' , 'metadata-seo'); ?></label> 
-	<input class="widefat" id="<?php echo $this->get_field_id( 'fb_showface' ); ?>" name="<?php echo $this->get_field_name( 'fb_showface' ); ?>" type="checkbox" value="true" <?php echo checked( $fb_showface ); ?> />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	
+	<input class="widefat" id="<?php echo $this->get_field_id( 'fb_showface' ); ?>" name="<?php echo $this->get_field_name( 'fb_showface' ); ?>" type="checkbox" value="true" <?php echo checked( $fb_showface ); ?> />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+
+	<label for="<?php echo $this->get_field_id( 'fb_layout' ); ?>"><?php _e( 'Type:' , 'metadata-seo'); ?></label> 
+    <select class="widefat" id="<?php echo $this->get_field_id( 'fb_layout' ); ?>" name="<?php echo $this->get_field_name( 'fb_layout' ); ?>">
+		<option value="standard" <?php selected( $instance['fb_layout'], 'standard'); ?>>Standard</option>
+        <option value="box_count" <?php selected( $instance['fb_layout'], 'box_count'); ?>>Box Count</option>
+        <option value="button_count" <?php selected( $instance['fb_layout'], 'button_count'); ?>>Button Count</option>
+        <option value="button" <?php selected( $instance['fb_layout'], 'button'); ?>>Button</option>
+     </select>
 	</p>
 	<?php 
 	}
@@ -77,6 +86,7 @@ class metadata_seo_widget extends WP_Widget {
 		$instance = array();
 		$instance['fb_title'] = ( ! empty( $new_instance['fb_title'] ) ) ? strip_tags( $new_instance['fb_title'] ) : '';
 		$instance['fb_showface'] = ( ! empty( $new_instance['fb_showface'] ) ) ? true : false;
+		$instance['fb_layout'] = ( ! empty( $new_instance['fb_layout'] ) ) ? strip_tags( $new_instance['fb_layout'] ) : 'standard';
 		return $instance;
 	}
 } // metadata_seo_widget ends here
